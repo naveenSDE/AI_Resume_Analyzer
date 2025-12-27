@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Resume Analyzer</h1>
+            <p>Optimize your resume for the job you want.</p>
+        </header>
+
+        <main>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
+                <div class="form-group">
+                    <label>Upload Resume</label>
+                    <div id="drop-zone" class="drop-zone">
+                        <span class="drop-zone-icon">📄</span>
+                        <p class="drop-zone-text" id="file-label">Drag & Drop your resume here or click to browse</p>
+                        <input type="file" name="resume" id="resume" accept=".pdf,.docx" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="job_description">Job Description</label>
+                    <textarea name="job_description" id="job_description" rows="8"
+                        placeholder="Paste the job description here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Analyze Resume</button>
+            </form>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <h3>Analyzing your resume...</h3>
+        <p>This uses AI, so it might take a moment.</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

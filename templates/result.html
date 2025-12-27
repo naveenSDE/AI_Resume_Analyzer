@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Smart Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Analysis Results</h1>
+            <a href="/" class="back-link">← Analyze Another</a>
+        </header>
+
+        <main class="results-container">
+            <div class="score-card">
+                <h2>Match Score</h2>
+                <div class="score-circle" style="--score: {{ results.match_score }}">
+                    <span class="score-value">{{ results.match_score }}%</span>
+                </div>
+                <p>Based on keyword matching and semantic analysis</p>
+            </div>
+
+            <div class="skills-section">
+                <div class="skills-column matched">
+                    <h3>✅ Matched Skills</h3>
+                    {% if results.matched_skills %}
+                    <ul>
+                        {% for skill in results.matched_skills %}
+                        <li>{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="text-muted">No direct skill matches found.</p>
+                    {% endif %}
+                </div>
+
+                <div class="skills-column missing">
+                    <h3>⚠️ Missing Skills</h3>
+                    {% if results.missing_skills %}
+                    <ul>
+                        {% for skill in results.missing_skills %}
+                        <li>{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="text-muted">Great job! You have all the key skills.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="suggestions-section">
+                <h3>💡 Improvement Suggestions</h3>
+                {% if results.suggestions %}
+                <ul>
+                    {% for suggestion in results.suggestions %}
+                    <li>{{ suggestion }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Your resume looks great! No specific suggestions.</p>
+                {% endif %}
+            </div>
+
+            <div class="summary-section">
+                <h3>📄 Resume Preview</h3>
+                <p class="resume-preview">{{ results.resume_summary }}</p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
