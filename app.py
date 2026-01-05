@@ -6,7 +6,8 @@ from utils.nlp import analyze_resume
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Change this in production
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
+
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max limit
 
 ALLOWED_EXTENSIONS = {'pdf', 'docx'}
@@ -61,4 +62,10 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+
+
