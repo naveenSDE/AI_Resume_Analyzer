@@ -5,6 +5,9 @@ from utils.parser import extract_text_from_pdf, extract_text_from_docx
 from utils.nlp import analyze_resume
 
 app = Flask(__name__)
+@app.route("/")
+def home():
+    return "Server is running"
 app.secret_key = 'supersecretkey'  # Change this in production
 app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
 
